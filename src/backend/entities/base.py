@@ -16,10 +16,15 @@ class Base:
         if self.__contains_only_letters(value) and self._langs[lang](value):
             value = self.__replace_specific_letter(value)
             self._value = value
+            self._lang = lang
 
     @property
     def value(self) -> str:
         return self._value
+
+    @property
+    def language(self) -> str:
+        return self._lang
 
     @staticmethod
     def __contains_only_letters(value) -> bool:
