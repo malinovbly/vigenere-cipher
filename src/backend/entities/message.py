@@ -10,4 +10,8 @@ class Message(Base):
         super().__init__(msg, lang)
 
     def __repr__(self):
-        return f"Message(value='{self.value}')"
+        if len(self.value) > 10:
+            representation = self.value[:5] + '...' + self.value[-5:]
+        else:
+            representation = self.value
+        return f"Message(value='{representation}')"

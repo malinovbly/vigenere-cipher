@@ -1,4 +1,4 @@
 from backend.entities.key import Key
 
 
-print(Key('фыв'))
+print(Key('qwertyuiopp', lang='en'))

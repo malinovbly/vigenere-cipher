@@ -10,4 +10,8 @@ class Key(Base):
         super().__init__(key, lang)
 
     def __repr__(self):
-        return f"Key(value='{self.value}')"
+        if len(self.value) > 10:
+            representation = self.value[:5] + '...' + self.value[-5:]
+        else:
+            representation = self.value
+        return f"Key(value='{representation}')"
