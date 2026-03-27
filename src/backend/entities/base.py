@@ -12,7 +12,6 @@ class Base:
         }
         if lang not in self._langs.keys():
             raise ValueError(f'language must be one of [{', '.join(self._langs.keys())}]')
-        value = value.lower()
         if self._contains_only_letters(value) and self._langs[lang](value):
             value = self._replace_specific_letter(value)
             self._value = value
@@ -33,9 +32,12 @@ class Base:
         if value is None or len(value) < 1:
             raise ValueError('value must not be empty')
         pattern = r'[^a-zа-яё]'
-        clean_key = re.sub(pattern, '', value)
+        clean_key = re.sub(pattern, '', value, flags=re.IGNORECASE)
         if clean_key != value:
             raise ValueError('value must only have letters')
+        clean_key = clean_key.lower()
+        if clean_key != value:
+            raise ValueError('value must be lowercase')
         return True
 
     @staticmethod

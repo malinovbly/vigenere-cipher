@@ -1,7 +1,13 @@
 from typing import Literal
+from enum import IntEnum
 
 from .key import Key
 from .message import Message
+
+
+class CipherMode(IntEnum):
+    ENCRYPT = 1
+    DECRYPT = -1
 
 
 class Cipher:
@@ -56,6 +62,12 @@ class Cipher:
         return self._value
 
     def _encrypt(self) -> str:
+        return self._make_cipher(CipherMode.ENCRYPT)
+
+    def _decrypt(self) -> str:
+        return self._make_cipher(CipherMode.DECRYPT)
+
+    def _make_cipher(self, mode: CipherMode) -> str:
         result = list()
         msg = self._message.value
         key = self._expanded_key.value
@@ -64,13 +76,10 @@ class Cipher:
         char_to_idx = {char: i for i, char in enumerate(alphabet)}
         for m_char, k_char in zip(msg, key):
             m_idx = char_to_idx.get(m_char)
-            k_idx = char_to_idx.get(k_char)
+            k_idx = char_to_idx.get(k_char) * mode.value
             new_idx = (m_idx + k_idx) % alphabet_len
             result.append(alphabet[new_idx])
         return ''.join(result)
-
-    def _decrypt(self) -> str:
-        pass
 
     @staticmethod
     def _expand_key(key: Key, message_len: int) -> Key:
