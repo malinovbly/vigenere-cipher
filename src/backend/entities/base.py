@@ -5,17 +5,17 @@ from typing import Literal
 class Base:
     def __init__(self,
                  value: str,
-                 lang: Literal['ru', 'en'] = 'ru') -> None:
-        self._langs = {
+                 language: Literal['ru', 'en'] = 'ru') -> None:
+        self._supported_languages = {
             'en': self._contains_only_en_letters,
             'ru': self._contains_only_ru_letters
         }
-        if lang not in self._langs.keys():
-            raise ValueError(f'language must be one of [{', '.join(self._langs.keys())}]')
-        if self._contains_only_letters(value) and self._langs[lang](value):
+        if language not in self._supported_languages.keys():
+            raise ValueError(f'language must be one of [{', '.join(self._supported_languages.keys())}]')
+        if self._contains_only_letters(value) and self._supported_languages[language](value):
             value = self._replace_specific_letter(value)
             self._value = value
-            self._lang = lang
+            self._language = language
 
     @property
     def value(self) -> str:
@@ -23,7 +23,7 @@ class Base:
 
     @property
     def language(self) -> Literal['ru', 'en']:
-        return self._lang
+        return self._language
 
     @staticmethod
     def _contains_only_letters(value) -> bool:

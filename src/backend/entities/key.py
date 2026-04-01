@@ -6,8 +6,8 @@ from .base import Base
 class Key(Base):
     def __init__(self,
                  key: str,
-                 lang: Literal['ru', 'en'] = 'ru') -> None:
-        super().__init__(key, lang)
+                 language: Literal['ru', 'en'] = 'ru') -> None:
+        super().__init__(key, language)
 
     def __repr__(self):
         if len(self.value) > 10:

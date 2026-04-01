@@ -3,6 +3,7 @@ from enum import IntEnum
 
 from .key import Key
 from .message import Message
+from .alphabet import Alphabet
 
 
 class CipherMode(IntEnum):
@@ -11,12 +12,6 @@ class CipherMode(IntEnum):
 
 
 class Cipher:
-
-    _ALPHABETS = {
-        'ru': 'абвгдежзийклмнопрстуфхцчшщъыьэюя',
-        'en': 'abcdefghijklmnopqrstuvwxyz'
-    }
-
     def __init__(self,
                  message: Message,
                  key: Key,
@@ -38,7 +33,7 @@ class Cipher:
         self._message = message
         self._key = key
         self._expanded_key = self._expand_key(key, len(message.value))
-        self._lang = key.language
+        self._language = key.language
         self._value = self._actions[action]()
 
     @property
@@ -55,7 +50,7 @@ class Cipher:
 
     @property
     def language(self) -> Literal['ru', 'en']:
-        return self._lang
+        return self._language
 
     @property
     def value(self) -> str:
@@ -69,16 +64,20 @@ class Cipher:
 
     def _make_cipher(self, mode: CipherMode) -> str:
         result = list()
+
         msg = self._message.value
         key = self._expanded_key.value
-        alphabet = self._get_alphabet(self._lang)
+
+        alphabet = Alphabet(language=self._language)
         alphabet_len = len(alphabet)
-        char_to_idx = {char: i for i, char in enumerate(alphabet)}
+        char_to_idx = alphabet.char_to_index_dict
+
         for m_char, k_char in zip(msg, key):
             m_idx = char_to_idx.get(m_char)
             k_idx = char_to_idx.get(k_char) * mode.value
             new_idx = (m_idx + k_idx) % alphabet_len
             result.append(alphabet[new_idx])
+
         return ''.join(result)
 
     @staticmethod
@@ -96,8 +95,4 @@ class Cipher:
         capacity = message_len // key_len
         rest = message_len % key_len
         new_key = key_value * capacity + key_value[:rest]
-        return Key(new_key, lang=key.language)
-
-    @staticmethod
-    def _get_alphabet(language: Literal['ru', 'en']) -> str:
-        return Cipher._ALPHABETS.get(language)
+        return Key(new_key, language=key.language)

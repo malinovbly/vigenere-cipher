@@ -6,8 +6,8 @@ from .base import Base
 class Message(Base):
     def __init__(self,
                  msg: str,
-                 lang: Literal['ru', 'en'] = 'ru') -> None:
-        super().__init__(msg, lang)
+                 language: Literal['ru', 'en'] = 'ru') -> None:
+        super().__init__(msg, language)
 
     def __repr__(self):
         if len(self.value) > 10:
