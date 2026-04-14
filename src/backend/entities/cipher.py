@@ -6,12 +6,12 @@ from .message import Message
 from .alphabet import Alphabet
 
 
-class CipherMode(IntEnum):
-    ENCRYPT = 1
-    DECRYPT = -1
-
-
 class Cipher:
+
+    class _CipherMode(IntEnum):
+        ENCRYPT = 1
+        DECRYPT = -1
+
     def __init__(self,
                  message: Message,
                  key: Key,
@@ -30,11 +30,11 @@ class Cipher:
             raise ValueError('key and message must be of the same language')
         if len(key.value) > len(message.value):
             raise ValueError('key must be less than or equal to message')
-        self._message = message
-        self._key = key
-        self._expanded_key = self._expand_key(key, len(message.value))
-        self._language = key.language
-        self._value = self._actions[action]()
+        self._message: Message = message
+        self._key: Key = key
+        self._expanded_key: Key = self._expand_key(key, len(message.value))
+        self._language: Literal['ru', 'en'] = key.language
+        self._value: Message = Message(self._actions[action](), self._language)
 
     @property
     def message(self) -> Message:
@@ -45,24 +45,20 @@ class Cipher:
         return self._key
 
     @property
-    def expanded_key(self) -> Key:
-        return self._expanded_key
-
-    @property
     def language(self) -> Literal['ru', 'en']:
         return self._language
 
     @property
-    def value(self) -> str:
+    def value(self) -> Message:
         return self._value
 
     def _encrypt(self) -> str:
-        return self._make_cipher(CipherMode.ENCRYPT)
+        return self._make_cipher(self._CipherMode.ENCRYPT)
 
     def _decrypt(self) -> str:
-        return self._make_cipher(CipherMode.DECRYPT)
+        return self._make_cipher(self._CipherMode.DECRYPT)
 
-    def _make_cipher(self, mode: CipherMode) -> str:
+    def _make_cipher(self, mode: _CipherMode) -> str:
         result = list()
 
         msg = self._message.value
