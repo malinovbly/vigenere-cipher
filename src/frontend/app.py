@@ -8,7 +8,7 @@ def create_app() -> tkinter.Tk:
     root.title('Шифр Виженера')
 
     root.resizable(False, False)
-    root.geometry('400x250')
+    root.geometry('400x300')
 
     icon = tkinter.PhotoImage(file='src/frontend/icon.png')
     # icon = tkinter.PhotoImage(file='icon.png')
