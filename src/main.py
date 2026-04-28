@@ -1,4 +1,10 @@
-from backend.entities.key import Key
+from src.frontend.app import main
 
 
-print(Key('qwertyuiopp', lang='en'))
+# разделить строку на подстроки по 5 символов
+# s = '...'
+# response = [s[i:i+5] for i in range(0, len(s), 5)]
+# return ' '.join(response)
+
+if __name__ == '__main__':
+    main()

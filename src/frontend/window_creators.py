@@ -1,71 +1,30 @@
 import tkinter
 
-from .enums import LabelTexts, ButtonTexts
-from .widgets.buttons import (add_return_button,
-                              add_get_result_button,
-                              add_main_menu_button)
-from .widgets.frames import (create_main_frame,
-                             create_frame,
-                             add_main_label_frame,
-                             add_enter_key_frame,
-                             add_choose_msg_way_frame)
+from .widgets.labels import create_label
+from .widgets.frames import create_main_frame, add_main_label_frame, create_frame
+from .enums import LabelTexts
+from .utils import get_result
 
 
-def create_main_window(root):
-    frame = create_main_frame(root)
+def create_result_window(root, action, **data):
+    window = tkinter.Toplevel(root)
+    window.title('Шифр Виженера')
+    window.resizable(False, False)
+    window.geometry('600x500')
+    icon = tkinter.PhotoImage(file='src/frontend/static/icon.png')
+    window.iconphoto(False, icon)
 
-    add_main_label_frame(frame, LabelTexts.MainWindowDescription)
-    add_main_label_frame(frame, LabelTexts.MainWindowChooseAction)
+    frame = create_main_frame(window)
 
-    add_main_menu_button(
-        root, frame, ButtonTexts.EnterEncryptWindow, WINDOW_CREATORS['encrypt'])
-    add_main_menu_button(
-        root, frame, ButtonTexts.EnterDecryptWindow, WINDOW_CREATORS['decrypt'])
-    add_main_menu_button(
-        root, frame, ButtonTexts.EnterBreakWindow, WINDOW_CREATORS['break'])
+    add_main_label_frame(frame, LabelTexts.Result)
 
+    result = get_result(action, **data)
 
-def create_encrypt_window(root):
-    frame = create_main_frame(root)
+    key_frame = create_frame(frame)
+    key_label = create_label(key_frame, LabelTexts.Key)
 
-    add_main_label_frame(frame, LabelTexts.EncryptWindow)
-    add_enter_key_frame(frame)
-    add_choose_msg_way_frame(frame)
+    message_frame = create_frame(frame)
+    message_label = create_label(message_frame, LabelTexts.Message)
 
     buttons_frame = create_frame(frame)
     buttons_frame.pack_configure(side='bottom')
-    add_get_result_button(buttons_frame, action='encrypt')
-    add_return_button(root, buttons_frame, create_main_window)
-
-
-def create_decrypt_window(root):
-    frame = create_main_frame(root)
-
-    add_main_label_frame(frame, LabelTexts.DecryptWindow)
-    add_enter_key_frame(frame)
-    add_choose_msg_way_frame(frame)
-
-    buttons_frame = create_frame(frame)
-    buttons_frame.pack_configure(side='bottom')
-    add_get_result_button(buttons_frame, action='decrypt')
-    add_return_button(root, buttons_frame, create_main_window)
-
-
-def create_breaker_window(root):
-    frame = create_main_frame(root)
-
-    add_main_label_frame(frame, LabelTexts.BreakWindow)
-    add_choose_msg_way_frame(frame)
-
-    buttons_frame = create_frame(frame)
-    buttons_frame.pack_configure(side='bottom')
-    add_get_result_button(buttons_frame, action='break')
-    add_return_button(root, buttons_frame, create_main_window)
-
-
-WINDOW_CREATORS = {
-    'encrypt': create_encrypt_window,
-    'decrypt': create_decrypt_window,
-    'break': create_breaker_window,
-    'main': create_main_window
-}

@@ -1,6 +1,6 @@
 import tkinter
 
-from .window_creators import create_main_window
+from .page_creators import create_main_page
 
 
 def create_app() -> tkinter.Tk:
@@ -10,7 +10,7 @@ def create_app() -> tkinter.Tk:
     root.resizable(False, False)
     root.geometry('400x300')
 
-    icon = tkinter.PhotoImage(file='src/frontend/icon.png')
+    icon = tkinter.PhotoImage(file='src/frontend/static/icon.png')
     # icon = tkinter.PhotoImage(file='icon.png')
     root.iconphoto(False, icon)
 
@@ -19,9 +19,11 @@ def create_app() -> tkinter.Tk:
 
 def main():
     root = create_app()
-    create_main_window(root)
+    create_main_page(root)
     root.mainloop()
 
 
 if __name__ == '__main__':
+
+
     main()

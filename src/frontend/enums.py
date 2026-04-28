@@ -15,7 +15,9 @@ class LabelTexts(StrEnum):
     Key = 'Ключ'
     Message = 'Сообщение'
     File = 'Файл'
+    Result = 'Результат'
     MessageWay = 'Способ ввода сообщения'
+    Language = 'Алфавит'
 
 
 class ButtonTexts(StrEnum):
@@ -30,3 +32,5 @@ class ButtonTexts(StrEnum):
 class RadioButtonTexts(StrEnum):
     Text = 'Текст'
     File = 'Файл (.txt)'
+    LanguageRU = 'Кириллица'
+    LanguageEN = 'Латиница'

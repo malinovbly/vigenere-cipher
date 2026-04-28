@@ -4,8 +4,8 @@ from tkinter import ttk
 from .buttons import create_browse_button
 from .labels import create_label
 from .entries import create_entry
-from ..utils import destroy_child_by_name
 from ..enums import LabelTexts, RadioButtonTexts
+from ..constants import RADIO_MESSAGE_WAY_VALUES, RADIO_LANGUAGE_VALUES
 
 
 def add_main_label_frame(parent, text):
@@ -19,39 +19,56 @@ def add_enter_key_frame(parent):
     frame = create_frame(parent)
     label = create_label(frame, LabelTexts.Key)
     entry = create_entry(frame)
+    return entry
 
 
 def add_enter_msg_frame(parent):
-    destroy_child_by_name(parent, 'enter_file_frame')
-    frame = create_frame(parent, name='enter_msg_frame')
-
+    frame = create_frame(parent)
     label = create_label(frame, LabelTexts.Message)
     entry = create_entry(frame)
+    return entry
 
 
 def add_enter_file_frame(parent):
-    destroy_child_by_name(parent, 'enter_msg_frame')
-    frame = create_frame(parent, name='enter_file_frame')
-
+    frame = create_frame(parent)
     label = create_label(frame, LabelTexts.File)
     entry = create_entry(frame)
     browse_btn = create_browse_button(frame, entry)
+    return entry
 
 
 def add_choose_msg_way_frame(parent):
     frame = create_frame(parent)
+    label = create_label(frame, LabelTexts.MessageWay, width=25)
 
-    label = create_label(frame, LabelTexts.MessageWay, width='')
+    radio_val = tkinter.StringVar()
 
-    radio_val = tkinter.IntVar()
-
-    radio1 = ttk.Radiobutton(frame, text=RadioButtonTexts.File, variable=radio_val, value=1,
-                             command=lambda: add_enter_file_frame(parent))
+    radio1 = ttk.Radiobutton(
+        frame, text=RadioButtonTexts.File, variable=radio_val, value=RADIO_MESSAGE_WAY_VALUES[1])
     radio1.pack(side='left', padx=10, pady=5)
 
-    radio2 = ttk.Radiobutton(frame, text=RadioButtonTexts.Text, variable=radio_val, value=2,
-                             command=lambda: add_enter_msg_frame(parent))
+    radio2 = ttk.Radiobutton(
+        frame, text=RadioButtonTexts.Text, variable=radio_val, value=RADIO_MESSAGE_WAY_VALUES[0])
     radio2.pack(side='left')
+
+    return radio_val
+
+
+def add_choose_lang_frame(parent):
+    frame = create_frame(parent)
+    label = create_label(frame, LabelTexts.Language, width=25)
+
+    radio_val = tkinter.StringVar()
+
+    radio1 = ttk.Radiobutton(
+        frame, text=RadioButtonTexts.LanguageRU, variable=radio_val, value=RADIO_LANGUAGE_VALUES[0])
+    radio1.pack(side='left', padx=10, pady=5)
+
+    radio2 = ttk.Radiobutton(
+        frame, text=RadioButtonTexts.LanguageEN, variable=radio_val, value=RADIO_LANGUAGE_VALUES[1])
+    radio2.pack(side='left')
+
+    return radio_val
 
 
 #region Local utils
@@ -60,7 +77,7 @@ def create_main_frame(root):
     """
     Create the main frame for the window
     Args:
-        root (tkinter.Tk): The root window (app)
+        root: Window
     Returns:
         Packed frame that fills window
     """
