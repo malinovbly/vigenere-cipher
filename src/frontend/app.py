@@ -11,7 +11,6 @@ def create_app() -> tkinter.Tk:
     root.geometry('400x300')
 
     icon = tkinter.PhotoImage(file='src/frontend/static/icon.png')
-    # icon = tkinter.PhotoImage(file='icon.png')
     root.iconphoto(False, icon)
 
     return root
@@ -24,6 +23,4 @@ def main():
 
 
 if __name__ == '__main__':
-
-
     main()

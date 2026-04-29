@@ -46,6 +46,12 @@ def switch_page(root, page_creator, need_save=False, **data):
     page_creator(root, **saved_data)
 
 
+def split_text_on_one_length_substrings(s: str, length: int = 5) -> str:
+    result = [s[i:i + length] for i in range(0, len(s), length)]
+    return ' '.join(result)
+
+
+
 def get_result(
         action: Literal['encrypt', 'decrypt', 'break'], **data):
     if action not in ACTIONS:
@@ -79,7 +85,7 @@ def get_result(
     if action in ['encrypt', 'decrypt']:
         k = Key(key=key, language=language)
         cipher = Cipher(message=msg, key=k, action=action)
-        print(cipher.value.value)
+        return k.value, split_text_on_one_length_substrings(cipher.value.value)
     else:
         breaker = CipherBreaker(ciphertext=msg)
-        print(breaker.value.value)
+        return breaker.key.value, split_text_on_one_length_substrings(breaker.value.value)
