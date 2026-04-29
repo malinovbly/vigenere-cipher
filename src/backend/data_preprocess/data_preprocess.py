@@ -9,26 +9,22 @@ from .exceptions import InvalidFileExtensionError
 SUPPORTED_FILE_EXTENSIONS = ['.txt']
 
 
+def clear_string(string: str) -> str:
+    """Remove special characters and convert to lowercase."""
+    pattern = r'[^a-zа-яё]'
+    cleared_string = re.sub(pattern, '', string, flags=re.IGNORECASE)
+    return cleared_string
+
+
 def preprocess_file(file_path: str) -> str:
-    """
-    Remove special characters and convert to lowercase.
-    Args:
-        file_path (str): Path to the file.
-    Returns:
-        str: Preprocessed string from file.
-    Raises:
-        ValueError: File name contains special characters.
-    """
     _is_file_name_valid(file_path.split('/')[-1])
     _check_file_extension(file_path)
-    result_string = ""
-    pattern = r"[^a-zа-я]"
+    result_string = ''
     with open(file_path, 'r', encoding='utf-8') as file:
         while True:
             string = file.readline()
-            if string == "":
-                break
-            result_string += re.sub(pattern, "", string, flags=re.IGNORECASE)
+            if len(string) == 0: break
+            result_string += clear_string(string)
     return result_string.lower()
 
 
@@ -44,7 +40,7 @@ def _check_file_extension(file_path: str) -> bool:
     """
     file_path = Path(file_path)
     if file_path.suffix.lower() not in SUPPORTED_FILE_EXTENSIONS:
-        raise InvalidFileExtensionError(f"unsupported file extension: '{file_path.suffix}'")
+        raise InvalidFileExtensionError(f'Unsupported file extension: "{file_path.suffix}"')
     return True
 
 
@@ -59,5 +55,5 @@ def _is_file_name_valid(file_name: str) -> bool:
         ValueError: File name is not valid.
     """
     if not is_valid_filename(file_name):
-        raise ValueError(f"file name '{file_name}' is not valid.")
+        raise ValueError(f'File name "{file_name}" is not valid.')
     return True

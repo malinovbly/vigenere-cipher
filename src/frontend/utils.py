@@ -5,11 +5,8 @@ from ..backend.entities.cipher import Cipher
 from ..backend.entities.cipher_breaker import CipherBreaker
 from ..backend.entities.key import Key
 from ..backend.entities.message import Message
-from ..backend.file_preprocess.file_preprocess import preprocess_file
-from .constants import (ACTIONS,
-                        DATA_TO_SAVE,
-                        RADIO_MESSAGE_WAY_VALUES,
-                        RADIO_LANGUAGE_VALUES)
+from ..backend.data_preprocess.data_preprocess import preprocess_file, clear_string
+from .constants import ACTIONS, DATA_TO_SAVE, DATA_TO_CLEAR
 
 
 def select_file(file_entry):
@@ -24,6 +21,8 @@ def save_data(**data) -> dict:
     for key, value in data.items():
         if key == 'action':
             saved_data[key] = value
+        elif key in DATA_TO_CLEAR:
+            saved_data[key] = clear_string(value.get())
         elif key in DATA_TO_SAVE:
             saved_data[key] = value.get()
     return saved_data
@@ -46,10 +45,9 @@ def switch_page(root, page_creator, need_save=False, **data):
     page_creator(root, **saved_data)
 
 
-def split_text_on_one_length_substrings(s: str, length: int = 5) -> str:
+def split_text_same_length_substrings(s: str, length: int = 5) -> str:
     result = [s[i:i + length] for i in range(0, len(s), length)]
     return ' '.join(result)
-
 
 
 def get_result(
@@ -85,7 +83,7 @@ def get_result(
     if action in ['encrypt', 'decrypt']:
         k = Key(key=key, language=language)
         cipher = Cipher(message=msg, key=k, action=action)
-        return k.value, split_text_on_one_length_substrings(cipher.value.value)
+        return k.value, split_text_same_length_substrings(cipher.value.value)
     else:
         breaker = CipherBreaker(ciphertext=msg)
-        return breaker.key.value, split_text_on_one_length_substrings(breaker.value.value)
+        return breaker.key.value, split_text_same_length_substrings(breaker.value.value)
