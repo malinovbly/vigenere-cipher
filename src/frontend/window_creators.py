@@ -14,6 +14,11 @@ def on_closing_result_window(root, window):
 
 
 def create_result_window(root, action, **data):
+    try:
+        key_value, msg_value = get_result(action, **data)
+    except ValueError:
+        return
+
     window = tkinter.Toplevel(root)
     window.title('Шифр Виженера')
     window.resizable(False, False)
@@ -24,8 +29,6 @@ def create_result_window(root, action, **data):
     frame = create_main_frame(window)
 
     add_main_label_frame(frame, LabelTexts.Result)
-
-    key_value, msg_value = get_result(action, **data)
 
     key_frame = create_frame(frame)
     key_label = create_label(key_frame, LabelTexts.Key)
@@ -39,9 +42,6 @@ def create_result_window(root, action, **data):
     message_text = ScrolledText(message_frame)
     message_text.pack(padx=5, pady=5, fill='x', expand=True)
     message_text.insert(tkinter.INSERT, msg_value)
-
-    # buttons_frame = create_frame(frame)
-    # buttons_frame.pack_configure(side='bottom')
 
     root.withdraw()
     window.protocol('WM_DELETE_WINDOW',

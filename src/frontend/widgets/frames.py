@@ -71,8 +71,6 @@ def add_choose_lang_frame(parent):
     return radio_val
 
 
-#region Local utils
-
 def create_main_frame(root):
     """
     Create the main frame for the window
@@ -91,5 +89,3 @@ def create_frame(parent, need_pack: bool = True, **options):
     if need_pack:
         frame.pack(fill='x')
     return frame
-
-#endregion
