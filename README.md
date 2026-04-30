@@ -24,13 +24,11 @@ pyinstaller --onefile --windowed --icon="src/frontend/static/icon.ico" --add-dat
 3. Расположение исполняемого файла
 ```text
 vigenere-cipher/
-├── build/
 ├── dist/
 │   └── vigenere-cipher.exe     # Итоговый исполняемый файл
 ├── src/
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
-├── run.py
-└── vigenere-cipher.spec
+└── run.py
 ```
