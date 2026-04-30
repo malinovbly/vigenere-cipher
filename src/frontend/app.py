@@ -1,6 +1,7 @@
 import tkinter
 from tkinter import ttk
 
+from .utils import resource_path
 from .page_creators import create_main_page
 
 
@@ -12,10 +13,14 @@ class App:
     @staticmethod
     def _config(root):
         root.title('Шифр Виженера')
+
         root.resizable(False, False)
         root.geometry('400x300')
-        icon = tkinter.PhotoImage(file='src/frontend/static/icon.png')
+
+        icon_path = resource_path('src/frontend/static/icon.png')
+        icon = tkinter.PhotoImage(file=icon_path)
         root.iconphoto(False, icon)
+
         create_main_page(root)
         return root
 

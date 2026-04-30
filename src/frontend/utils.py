@@ -1,3 +1,5 @@
+import os
+import sys
 from typing import Literal
 from tkinter import filedialog
 
@@ -7,6 +9,14 @@ from ..backend.entities.key import Key
 from ..backend.entities.message import Message
 from ..backend.data_preprocess.data_preprocess import preprocess_file, clear_string
 from .constants import ACTIONS, DATA_TO_SAVE, DATA_TO_CLEAR
+
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+    return os.path.join(base_path, relative_path)
 
 
 def select_file(file_entry):
