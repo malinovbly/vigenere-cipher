@@ -84,7 +84,7 @@ def get_result(
         raise ValueError('Invalid action')
 
     language = data.get('radio_language')
-    key = data.get('key')
+    key = data.get('key').lower()
     message_way = data.get('radio_message_way')
 
     if key is None and action != 'break':
@@ -101,7 +101,7 @@ def get_result(
         text = preprocess_file(file_name)
         msg = Message(msg=text, language=language)
     elif message_way == 'text':
-        message = data.get('message')
+        message = data.get('message').lower()
         if message is None:
             raise ValueError('Invalid message')
         msg = Message(msg=message, language=language)

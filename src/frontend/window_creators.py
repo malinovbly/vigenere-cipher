@@ -16,7 +16,8 @@ def on_closing_result_window(root, window):
 def create_result_window(root, action, **data):
     try:
         key_value, msg_value = get_result(action, **data)
-    except ValueError:
+    except ValueError as e:
+        print(e)
         return
 
     window = tkinter.Toplevel(root)
