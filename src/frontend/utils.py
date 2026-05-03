@@ -11,6 +11,24 @@ from ..backend.data_preprocess.data_preprocess import preprocess_file, clear_str
 from .constants import ACTIONS, DATA_TO_SAVE, DATA_TO_CLEAR
 
 
+def setup_hotkeys(window):
+    def keypress(e):
+        if e.keycode == 86 and e.keysym != 'v':
+            _handle_clipboard(window, "<<Paste>>")
+        elif e.keycode == 67 and e.keysym != 'c':
+            _handle_clipboard(window, "<<Copy>>")
+        elif e.keycode == 88 and e.keysym != 'x':
+            _handle_clipboard(window, "<<Cut>>")
+
+    window.bind("<Control-KeyPress>", keypress)
+
+
+def _handle_clipboard(window, event_name):
+    widget = window.focus_get()
+    if hasattr(widget, 'event_generate'):
+        widget.event_generate(event_name)
+
+
 def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS

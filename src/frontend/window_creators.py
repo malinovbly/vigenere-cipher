@@ -5,7 +5,7 @@ from .widgets.entries import create_entry
 from .widgets.labels import create_label
 from .widgets.frames import create_main_frame, add_main_label_frame, create_frame
 from .enums import LabelTexts
-from .utils import get_result
+from .utils import get_result, resource_path, setup_hotkeys
 
 
 def on_closing_result_window(root, window):
@@ -20,10 +20,12 @@ def create_result_window(root, action, **data):
         return
 
     window = tkinter.Toplevel(root)
+    setup_hotkeys(window)
     window.title('Шифр Виженера')
     window.resizable(False, False)
     window.geometry('500x350')
-    icon = tkinter.PhotoImage(file='src/frontend/static/icon.png')
+    icon_path = resource_path('src/frontend/static/icon.png')
+    icon = tkinter.PhotoImage(file=icon_path)
     window.iconphoto(False, icon)
 
     frame = create_main_frame(window)
