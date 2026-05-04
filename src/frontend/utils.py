@@ -84,7 +84,7 @@ def get_result(
         raise ValueError('Invalid action')
 
     language = data.get('radio_language')
-    key = data.get('key').lower()
+    key = data.get('key')
     message_way = data.get('radio_message_way')
 
     if key is None and action != 'break':
@@ -109,7 +109,7 @@ def get_result(
         raise ValueError('Invalid radio_message_way')
 
     if action in ['encrypt', 'decrypt']:
-        k = Key(key=key, language=language)
+        k = Key(key=key.lower(), language=language)
         cipher = Cipher(message=msg, key=k, action=action)
         return k.value, split_text_same_length_substrings(cipher.value.value)
     else:
