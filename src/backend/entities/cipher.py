@@ -29,7 +29,7 @@ class Cipher:
         if not (key.language == message.language):
             raise ValueError('key and message must be of the same language')
         if len(key.value) > len(message.value):
-            raise ValueError('key must be less than or equal to message')
+            raise ValueError('Ключ не может быть длиннее сообщения!')
         self._message: Message = message
         self._key: Key = key
         self._expanded_key: Key = self._expand_key(key, len(message.value))

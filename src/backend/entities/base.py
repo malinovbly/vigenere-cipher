@@ -34,7 +34,7 @@ class Base:
         pattern = r'[^a-zа-яё]'
         clean_key = re.sub(pattern, '', value, flags=re.IGNORECASE)
         if clean_key != value:
-            raise ValueError('value must only have letters')
+            raise ValueError('Значение ключа должно содержать только буквы')
         clean_key = clean_key.lower()
         if clean_key != value:
             raise ValueError('value must be lowercase')

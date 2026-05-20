@@ -52,6 +52,8 @@ def save_data(**data) -> dict:
         elif key in DATA_TO_CLEAR:
             if key == 'message':
                 saved_data[key] = clear_string(value.get("1.0", "end-1c"))
+            elif key == 'key':
+                saved_data[key] = value.get()
             else:
                 saved_data[key] = clear_string(value.get())
         elif key in DATA_TO_SAVE:

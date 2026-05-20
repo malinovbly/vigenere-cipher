@@ -1,12 +1,14 @@
 import tkinter
 from tkinter import messagebox
+from tkinter import ttk
 from tkinter.scrolledtext import ScrolledText
 
+from .widgets.buttons import add_return_button
 from ..backend.data_preprocess.exceptions import InvalidFileExtensionError
 from .widgets.entries import create_entry
 from .widgets.labels import create_label
 from .widgets.frames import create_main_frame, add_main_label_frame, create_frame
-from .enums import LabelTexts
+from .enums import LabelTexts, ButtonTexts
 from .utils import get_result, resource_path, setup_hotkeys
 
 
@@ -55,10 +57,17 @@ def create_result_window(root, action, **data):
     message_frame = create_frame(frame)
     message_frame.pack_configure(fill='both')
     message_label = create_label(message_frame, LabelTexts.Message)
-    message_text = ScrolledText(message_frame)
+    message_text = ScrolledText(message_frame, height=14)
     message_text.pack(padx=5, pady=5, fill='x', expand=True)
     message_text.insert(tkinter.INSERT, msg_value)
 
     root.withdraw()
     window.protocol('WM_DELETE_WINDOW',
                     lambda: on_closing_result_window(root, window))
+
+    buttons_frame = create_frame(frame)
+    button = ttk.Button(
+        buttons_frame, text=ButtonTexts.Return,
+        command=lambda: on_closing_result_window(root, window)
+    )
+    button.pack(side='right', anchor='s', padx=5, pady=5)
