@@ -1,3 +1,4 @@
+import tkinter
 from tkinter import ttk
 
 
@@ -6,3 +7,10 @@ def create_entry(parent, need_pack: bool = True, **options):
     if need_pack:
         entry.pack(padx=5, pady=5, fill='x', expand=True)
     return entry
+
+
+def create_text(parent, need_pack: bool = True, **options):
+    text = tkinter.Text(parent, height=3, **options)
+    if need_pack:
+        text.pack(padx=5, pady=5, fill='x', expand=True)
+    return text

@@ -3,7 +3,7 @@ from tkinter import ttk
 
 from .buttons import create_browse_button
 from .labels import create_label
-from .entries import create_entry
+from .entries import create_entry, create_text
 from ..enums import LabelTexts, RadioButtonTexts
 from ..constants import RADIO_MESSAGE_WAY_VALUES, RADIO_LANGUAGE_VALUES
 
@@ -25,7 +25,7 @@ def add_enter_key_frame(parent):
 def add_enter_msg_frame(parent):
     frame = create_frame(parent)
     label = create_label(frame, LabelTexts.Message)
-    entry = create_entry(frame)
+    entry = create_text(frame)
     return entry
 
 

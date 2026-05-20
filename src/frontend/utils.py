@@ -50,7 +50,10 @@ def save_data(**data) -> dict:
         if key == 'action':
             saved_data[key] = value
         elif key in DATA_TO_CLEAR:
-            saved_data[key] = clear_string(value.get())
+            if key == 'message':
+                saved_data[key] = clear_string(value.get("1.0", "end-1c"))
+            else:
+                saved_data[key] = clear_string(value.get())
         elif key in DATA_TO_SAVE:
             saved_data[key] = value.get()
     return saved_data
