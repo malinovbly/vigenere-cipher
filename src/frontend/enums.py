@@ -21,8 +21,8 @@ class LabelTexts(StrEnum):
 
 
 class ButtonTexts(StrEnum):
-    EnterEncryptWindow = 'Зашифровать сообщение по ключу'
-    EnterDecryptWindow = 'Расшифровать сообщение по ключу'
+    EnterEncryptWindow = 'Зашифровать сообщение'
+    EnterDecryptWindow = 'Расшифровать сообщение'
     EnterBreakWindow = 'Взломать шифр'
     Return = 'Назад'
     Done = 'Готово'

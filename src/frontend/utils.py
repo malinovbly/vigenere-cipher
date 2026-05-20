@@ -81,32 +81,32 @@ def split_text_same_length_substrings(s: str, length: int = 5) -> str:
 def get_result(
         action: Literal['encrypt', 'decrypt', 'break'], **data):
     if action not in ACTIONS:
-        raise ValueError('Invalid action')
+        raise ValueError('Невалидное действие!')
 
     language = data.get('radio_language')
     key = data.get('key')
     message_way = data.get('radio_message_way')
 
-    if key is None and action != 'break':
-        raise ValueError('Invalid key')
-    if language is None:
-        raise ValueError('Invalid radio_language')
-    if message_way is None:
-        raise ValueError('Invalid radio_message_way')
+    if (key is None or len(key) == 0) and action != 'break':
+        raise ValueError('Ключ не может быть пустым!')
+    if language is None or len(language) == 0:
+        raise ValueError('Не был выбран язык!')
+    if message_way is None or len(message_way) == 0:
+        raise ValueError('Не был выбран способ ввода сообщения!')
 
     if message_way == 'file':
         file_name = data.get('file_name')
-        if file_name is None:
-            raise ValueError('Invalid file_name')
+        if file_name is None or len(file_name) == 0:
+            raise ValueError('Несуществующее или невалидное имя файла!')
         text = preprocess_file(file_name)
         msg = Message(msg=text, language=language)
     elif message_way == 'text':
         message = data.get('message').lower()
-        if message is None:
-            raise ValueError('Invalid message')
+        if message is None or len(message) == 0:
+            raise ValueError('Сообщение не может быть пустым!')
         msg = Message(msg=message, language=language)
     else:
-        raise ValueError('Invalid radio_message_way')
+        raise ValueError('Не был выбран способ ввода сообщения!')
 
     if action in ['encrypt', 'decrypt']:
         k = Key(key=key.lower(), language=language)

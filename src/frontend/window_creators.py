@@ -1,6 +1,8 @@
 import tkinter
+from tkinter import messagebox
 from tkinter.scrolledtext import ScrolledText
 
+from ..backend.data_preprocess.exceptions import InvalidFileExtensionError
 from .widgets.entries import create_entry
 from .widgets.labels import create_label
 from .widgets.frames import create_main_frame, add_main_label_frame, create_frame
@@ -16,8 +18,19 @@ def on_closing_result_window(root, window):
 def create_result_window(root, action, **data):
     try:
         key_value, msg_value = get_result(action, **data)
+    except InvalidFileExtensionError:
+        messagebox.showerror(
+            title='Произошла ошибка',
+            message='Несуществующее или невалидное имя файла!',
+            parent=root
+        )
+        return
     except ValueError as e:
-        print(e)
+        messagebox.showerror(
+            title='Произошла ошибка',
+            message=str(e),
+            parent=root
+        )
         return
 
     window = tkinter.Toplevel(root)

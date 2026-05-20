@@ -45,7 +45,7 @@ class Base:
         pattern = r'[^a-z]'
         clean_key = re.sub(pattern, '', value)
         if clean_key != value:
-            raise ValueError('value must only have EN letters')
+            raise ValueError('Значение ключа/сообщения должно состоять только из букв латиницы')
         return True
 
     @staticmethod
@@ -53,7 +53,7 @@ class Base:
         pattern = r'[^а-яё]'
         clean_key = re.sub(pattern, '', value)
         if clean_key != value:
-            raise ValueError('value must only have RU letters')
+            raise ValueError('Значение ключа/сообщения должно состоять только из букв кириллицы')
         return True
 
     @staticmethod
