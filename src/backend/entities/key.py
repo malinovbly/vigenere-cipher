@@ -15,12 +15,12 @@ class Key(Base):
 
     _ERRORS_MAP = {
         **Base._ERRORS_MAP,
-        ValueTypeException: 'Значение ключа должно быть строкой',
-        ValueBlankException: 'Значение ключа не может быть пустым',
-        ValueLetterCaseException: 'Значение ключа должно быть в нижнем регистре',
-        ValueContainsNonENGLetters: 'Значение ключа должно состоять только из букв латиницы',
-        ValueContainsNonRUSLetters: 'Значение ключа должно состоять только из букв кириллицы',
-        ValueContainsOtherCharactersException: 'Значение ключа должно содержать только буквы'
+        ValueTypeException: 'Ключ должен быть строкой',
+        ValueBlankException: 'Ключ не может быть пустым',
+        ValueLetterCaseException: 'Ключ должен быть в нижнем регистре',
+        ValueContainsNonENGLetters: 'Ключ должен состоять только из букв латиницы',
+        ValueContainsNonRUSLetters: 'Ключ должен состоять только из букв кириллицы',
+        ValueContainsOtherCharactersException: 'Ключ должен содержать только буквы'
     }
 
     def __init__(

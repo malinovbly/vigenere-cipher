@@ -37,8 +37,8 @@ def _check_file_extension(file_path: str) -> bool:
 
 
 def _is_file_name_valid(file_name: str) -> bool:
-    if not is_valid_filename(file_name):
+    if not is_valid_filename(file_name) or not Path(file_name).is_file():
         raise InvalidFileNameException(
-            f'Невалидное имя файла "{file_name}"'
+            f'Несуществующее или невалидное имя файла: "{file_name}"'
         )
     return True

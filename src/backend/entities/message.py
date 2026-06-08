@@ -13,10 +13,10 @@ class Message(Base):
 
     _ERRORS_MAP = {
         **Base._ERRORS_MAP,
-        ValueTypeException: 'Значение сообщения должно быть строкой',
-        ValueBlankException: 'Значение сообщения не может быть пустым',
-        ValueContainsNonENGLetters: 'Значение сообщения должно состоять только из букв латиницы',
-        ValueContainsNonRUSLetters: 'Значение сообщения должно состоять только из букв кириллицы',
+        ValueTypeException: 'Сообщение должно быть строкой',
+        ValueBlankException: 'Сообщение не может быть пустым',
+        ValueContainsNonENGLetters: 'Сообщение должно состоять только из букв латиницы',
+        ValueContainsNonRUSLetters: 'Сообщение должно состоять только из букв кириллицы',
     }
 
     def __init__(
