@@ -1,12 +1,29 @@
 from typing import Literal
 
 from .base import Base
+from ..exceptions import (
+    ValueTypeException,
+    ValueBlankException,
+    ValueContainsNonENGLetters,
+    ValueContainsNonRUSLetters
+)
 
 
 class Message(Base):
-    def __init__(self,
-                 msg: str,
-                 language: Literal['ru', 'en'] = 'ru') -> None:
+
+    _ERRORS_MAP = {
+        **Base._ERRORS_MAP,
+        ValueTypeException: 'Значение сообщения должно быть строкой',
+        ValueBlankException: 'Значение сообщения не может быть пустым',
+        ValueContainsNonENGLetters: 'Значение сообщения должно состоять только из букв латиницы',
+        ValueContainsNonRUSLetters: 'Значение сообщения должно состоять только из букв кириллицы',
+    }
+
+    def __init__(
+            self,
+            msg: str,
+            language: Literal['ru', 'en'] = 'ru'
+    ) -> None:
         super().__init__(msg, language)
 
     def __repr__(self):
