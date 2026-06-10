@@ -10,6 +10,7 @@ class LabelTexts(StrEnum):
     EncryptWindow = 'Зашифровать сообщение'
     DecryptWindow = 'Расшифровать сообщение'
     BreakWindow = 'Взломать шифр'
+    MainWindowLabel = 'Шифр Виженера'
     MainWindowDescription = ('С помощью данного приложения вы можете:\n'
                              ' - зашифровать текст,\n'
                              ' - расшифровать сообщение,\n'

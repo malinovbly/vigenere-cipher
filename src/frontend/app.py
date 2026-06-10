@@ -73,17 +73,44 @@ class App(tkinter.Tk):
     def _create_main_page(self):
         frame = self._add_main_frame()
 
-        self._add_main_label_frame(frame, LabelTexts.MainWindowDescription)
-        self._add_main_label_frame(frame, LabelTexts.ChooseAction)
+        self._add_main_label_frame(
+            frame,
+            LabelTexts.MainWindowLabel,
+            label_options={'font': ('Roboto', 20)}
+        )
+        self._add_main_label_frame(
+            frame,
+            LabelTexts.MainWindowDescription,
+        )
+        self._add_main_label_frame(
+            frame,
+            LabelTexts.ChooseAction,
+        )
 
         buttons_frame = create_frame(frame)
-        self._add_main_menu_button(buttons_frame, ButtonTexts.EnterEncryptWindow, Page.ENCRYPT)
-        self._add_main_menu_button(buttons_frame, ButtonTexts.EnterDecryptWindow, Page.DECRYPT)
-        self._add_main_menu_button(buttons_frame, ButtonTexts.EnterBreakWindow, Page.BREAK)
+        self._add_main_menu_button(
+            buttons_frame,
+            ButtonTexts.EnterEncryptWindow,
+            Page.ENCRYPT
+        )
+        self._add_main_menu_button(
+            buttons_frame,
+            ButtonTexts.EnterDecryptWindow,
+            Page.DECRYPT
+        )
+        self._add_main_menu_button(
+            buttons_frame,
+            ButtonTexts.EnterBreakWindow,
+            Page.BREAK
+        )
 
     def _create_encrypt_page(self, with_insert_data=False):
         frame = self._add_main_frame()
-        self._add_main_label_frame(frame, LabelTexts.EncryptWindow)
+        self._add_main_label_frame(
+            frame,
+            LabelTexts.EncryptWindow,
+            label_options={'font': ('Roboto', 20)}
+        )
 
         language = self._add_choose_lang_frame(frame)
         key = self._add_enter_key_frame(frame)
@@ -106,7 +133,11 @@ class App(tkinter.Tk):
 
     def _create_decrypt_page(self, with_insert_data=False):
         frame = self._add_main_frame()
-        self._add_main_label_frame(frame, LabelTexts.DecryptWindow)
+        self._add_main_label_frame(
+            frame,
+            LabelTexts.DecryptWindow,
+            label_options={'font': ('Roboto', 20)}
+        )
 
         language = self._add_choose_lang_frame(frame)
         key = self._add_enter_key_frame(frame)
@@ -129,7 +160,11 @@ class App(tkinter.Tk):
 
     def _create_break_page(self, with_insert_data=False):
         frame = self._add_main_frame()
-        self._add_main_label_frame(frame, LabelTexts.BreakWindow)
+        self._add_main_label_frame(
+            frame,
+            LabelTexts.BreakWindow,
+            label_options={'font': ('Roboto', 20)}
+        )
 
         language = self._add_choose_lang_frame(frame)
         message = self._add_enter_msg_frame(frame, LabelTexts.Message, cnt_per_frame=1, with_browse_button=True)
@@ -149,7 +184,11 @@ class App(tkinter.Tk):
 
     def _create_result_page(self):
         frame = self._add_main_frame()
-        self._add_main_label_frame(frame, LabelTexts.Result)
+        self._add_main_label_frame(
+            frame,
+            LabelTexts.Result,
+            label_options={'font': ('Roboto', 20)}
+        )
 
         try:
             data = self._saved_data
@@ -227,9 +266,9 @@ class App(tkinter.Tk):
     #region Labels
 
     @staticmethod
-    def _add_main_label_frame(parent, text):
-        frame = create_frame(parent)
-        label = create_label(frame, text, False, padding=10)
+    def _add_main_label_frame(parent, text, frame_options={}, label_options={}):
+        frame = create_frame(parent, **frame_options)
+        label = create_label(frame, text, False, padding=10, **label_options)
         label['width'] = ''
         label.pack()
 
