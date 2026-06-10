@@ -1,22 +1,23 @@
 from enum import StrEnum
 
 
+class Language(StrEnum):
+    RU = 'ru'
+    EN = 'en'
+
+
 class LabelTexts(StrEnum):
-    EncryptWindow = 'Зашифровать сообщение по ключу'
-    DecryptWindow = 'Расшифровать сообщение по ключу'
+    EncryptWindow = 'Зашифровать сообщение'
+    DecryptWindow = 'Расшифровать сообщение'
     BreakWindow = 'Взломать шифр'
-    MainWindowDescription = ('Шифр Виженера - один из самых известных методов\n'
-                             '  классической криптографии\n'
-                             'Здесь вы можете:\n'
-                             '  - зашифровать текст;\n'
-                             '  - расшифровать сообщение по ключу;\n'
-                             '  - попытаться взломать шифр без ключа')
-    MainWindowChooseAction = 'Выберите, что необходимо сделать'
+    MainWindowDescription = ('С помощью данного приложения вы можете:\n'
+                             ' - зашифровать текст,\n'
+                             ' - расшифровать сообщение,\n'
+                             ' - попытаться взломать шифр без ключа.')
+    ChooseAction = 'Выберите, что необходимо сделать'
     Key = 'Ключ'
     Message = 'Сообщение'
-    File = 'Файл'
     Result = 'Результат'
-    MessageWay = 'Способ ввода сообщения'
     Language = 'Алфавит'
 
 
@@ -30,7 +31,5 @@ class ButtonTexts(StrEnum):
 
 
 class RadioButtonTexts(StrEnum):
-    Text = 'Текст'
-    File = 'Файл (.txt)'
     LanguageRU = 'Кириллица'
     LanguageEN = 'Латиница'
